@@ -27,7 +27,7 @@ const DateInput = <T extends FieldValues>({ control, name, label, className, edi
                         <TouchableOpacity onPress={() => setShow(true)}>
                             <TextInput
                                 className={cnMerge(className, 'w-full bg-neutral-600/30 text-neutral-100 px-4 py-2 rounded-lg focus:border focus:border-primary-500 focus:outline-none focus:ring-0', !editable ? 'bg-neutral-600' : '')}
-                                value={value ? new Date(value).toLocaleDateString() : ''}
+                                value={value ? value.toLocaleDateString() : ''}
                                 editable={false}
                                 placeholder="dd/mm/aaaa"
                             />
@@ -41,8 +41,7 @@ const DateInput = <T extends FieldValues>({ control, name, label, className, edi
                                     let currentDate = selectedDate || date;
                                     setShow(Platform.OS === 'ios');
                                     setDate(currentDate);
-                                    const formattedDate = currentDate.toISOString().split('T')[0];
-                                    onChange(formattedDate);
+                                    onChange(currentDate);
                                 }}
                             />
                         )}

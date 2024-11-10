@@ -1,15 +1,16 @@
-import { Text, View } from "react-native"
+import { ScrollView, Text, View } from "react-native"
 import { ReqImagesForm, ReqImagesFormValues } from "./req-images-form"
+import { reqImages } from "../api/req-images"
 
 const ReqImageHandler = () => {
 
     async function handleSubmit(data: ReqImagesFormValues) {
-        console.log(data)
+        reqImages(data)
     }
     
     return (
-        <>
-            <View className="w-full py-10 flex flex-col gap-3">
+        <ScrollView>
+            <View className="w-full my-10 flex flex-col gap-3">
                 <Text className="text-neutral-100 text-mheading2 font-bold leading-10">
                     Busca por imagens de
                     <Text className="text-primary-500"> satélite.</Text>
@@ -19,10 +20,10 @@ const ReqImageHandler = () => {
                 </Text>
             </View>
 
-            <View className="flex flex-col gap-20">
+            <View className="flex flex-col gap-20 mb-10">
                 <ReqImagesForm onSubmit={handleSubmit} />
             </View>
-        </>
+        </ScrollView>
     )
 }
 

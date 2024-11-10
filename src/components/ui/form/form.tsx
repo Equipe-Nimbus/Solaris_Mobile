@@ -2,8 +2,9 @@ import { cnMerge } from "@/src/utils/cnMerge";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactNode } from "react";
 import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps, UseFormReturn } from "react-hook-form";
-import { Button, View } from "react-native";
+import { View } from "react-native";
 import { z, ZodType } from "zod";
+import { Button } from "@/src/components/ui/button";
 
 type FormProps<TFormValues extends FieldValues, Schema> = {
     onSubmit: SubmitHandler<TFormValues>;
@@ -37,10 +38,16 @@ const Form = <
                 className={cnMerge(className)}
             >
                 {children(formMethods)}
-                <Button
+                {/* <Button
                     onPress={formMethods.handleSubmit(onSubmit)}
                     title={submitText}
-                />
+                /> */}
+                <Button
+                    variant="primary"
+                    onPress={formMethods.handleSubmit(onSubmit)}
+                >
+                    {submitText}
+                </Button>
             </View>
         </FormProvider>
     )

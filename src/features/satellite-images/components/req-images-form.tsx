@@ -1,11 +1,13 @@
 
 import { z } from "zod"
 
+import { Map } from "./map";
+
 import { DateInput, Form, Input } from "@/src/components/ui/form";
 
 const reqImagesSchema = z.object({
-    startDate: z.string().min(1, { message: 'Obrigatório' }),
-    endDate: z.string().min(1, { message: 'Obrigatório' }),
+    startDate: z.date().transform((date) => date.toISOString()),
+    endDate: z.date().transform((date) => date.toISOString()),
     bbox: z.string().min(1, { message: 'Obrigatório' }),
 })
 
@@ -22,8 +24,9 @@ const ReqImagesForm = ({ onSubmit }: ReqImagesFormProps) => {
             onSubmit={onSubmit}
             schema={reqImagesSchema}
             className="bg-neutral-700/70 flex flex-col p-4 rounded-lg gap-5 border border-neutral-600"
+            submitText="Buscar Imagens"
         >
-            {({ register, formState: { errors }, control }) => (
+            {({ register, formState: { errors }, control, setValue }) => (
                 <>
                     <DateInput
                         control={control}
@@ -42,7 +45,7 @@ const ReqImagesForm = ({ onSubmit }: ReqImagesFormProps) => {
                         error={errors.bbox}
                         className="hidden"
                     />
-                    {/* <Map /> */}
+                    <Map setValue={setValue}/>
                 </>
             )}
         </Form>
