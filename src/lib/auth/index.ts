@@ -66,6 +66,7 @@ const _useAuth = create<AuthState>((set, get) => ({
             const user = getToken();
             if (user !== null) {
                 set({ status: 'signIn', user });
+                api.defaults.headers['Authorization'] = `Bearer ${user.token}`
             } else {
                 get().signOut();
             }
