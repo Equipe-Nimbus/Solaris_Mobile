@@ -26,7 +26,7 @@ const ReqImagesForm = ({ onSubmit }: ReqImagesFormProps) => {
             className="bg-neutral-700/70 flex flex-col p-4 rounded-lg gap-5 border border-neutral-600"
             submitText="Buscar Imagens"
         >
-            {({ register, formState: { errors }, control, setValue }) => (
+            {({ control, setValue }) => (
                 <>
                     <DateInput
                         control={control}
@@ -41,8 +41,9 @@ const ReqImagesForm = ({ onSubmit }: ReqImagesFormProps) => {
                         editable
                     />
                     <Input
-                        registration={register('bbox')}
-                        error={errors.bbox}
+                        control={control}
+                        name="bbox"
+                        label="BBox"
                         className="hidden"
                     />
                     <Map setValue={setValue}/>

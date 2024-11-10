@@ -1,8 +1,13 @@
-import { ScrollView, Text, View } from "react-native"
+import { Button, ScrollView, Text, View } from "react-native"
 import { ReqImagesForm, ReqImagesFormValues } from "./req-images-form"
 import { reqImages } from "../api/req-images"
+import { useAuth } from "@/src/lib/auth"
+import { useRouter } from "expo-router"
+import { showNotification } from "@/src/components/ui/utils"
 
 const ReqImageHandler = () => {
+    const logout = useAuth.use.signOut()
+    const router = useRouter()
 
     async function handleSubmit(data: ReqImagesFormValues) {
         reqImages(data)
@@ -22,6 +27,14 @@ const ReqImageHandler = () => {
 
             <View className="flex flex-col gap-20 mb-10">
                 <ReqImagesForm onSubmit={handleSubmit} />
+                <Button title="logout" onPress={() => {
+                    logout()
+                    router.replace('/login')
+                    showNotification({
+                        description: 'Usuário deslogado com sucesso.',
+                        type: 'success'
+                    })
+                }} />
             </View>
         </ScrollView>
     )

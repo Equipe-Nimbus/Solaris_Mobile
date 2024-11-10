@@ -5,3 +5,9 @@ export type SatelliteImage = {
     mascara: string;
     download_links: string;
 }
+
+export type AuthResponse = {
+    id: number;
+    nome_user: string;
+    token: string;
+}

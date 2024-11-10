@@ -1,18 +1,29 @@
 import '../../global.css';
 
-import { Stack } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SplashScreen, Stack } from "expo-router";
+import { hydrateAuth } from '../lib/auth';
+import FlashMessage from 'react-native-flash-message';
 
+export const unstable_settings = {
+  initialRouteName: '(app)',
+};
+
+hydrateAuth()
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   return (
+    <>
       <Stack
         screenOptions={{
           navigationBarHidden: true,
         }}
       >
         <Stack.Screen name="(app)" options={{ headerShown: false }} />
+        <Stack.Screen name="register" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
       </Stack>
+      <FlashMessage position="top" />
+    </>
   );
 }
