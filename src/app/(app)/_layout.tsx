@@ -46,6 +46,13 @@ export default function TabLayout() {
                     headerShown: false
                 }}
             />
+            <Tabs.Screen
+                name="req-list"
+                options={{
+                    title: "Consultas",
+                    headerShown: false
+                }}
+            />
         </Tabs>
     )
 }

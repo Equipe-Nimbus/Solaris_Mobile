@@ -47,6 +47,7 @@ export function LoginForm() {
                             control={control}
                             name="senha_user"
                             label="Senha"
+                            secureTextEntry
                         />
                     </>
                 )}

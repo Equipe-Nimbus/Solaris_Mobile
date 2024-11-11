@@ -14,7 +14,7 @@ export const endpoints = {
         req: "/imagens"
     },
     requests: {
-        list: (id: number) => `/requisicao/${id}`,
+        list: (id: number ) => `/requisicao/${id}`,
         listOne: (id: string) => `/requisicao/historico/${id}`,
     }
 }
