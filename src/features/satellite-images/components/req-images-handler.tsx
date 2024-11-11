@@ -27,7 +27,7 @@ const ReqImageHandler = () => {
 
         await reqImages(data)
             .then((response) => {
-                setImages(response.data.imagens);
+                setImages(response);
             })
             .catch((e) => {
                 showNotification({

@@ -22,6 +22,8 @@ export const downloadFile = async (url: string) => {
   const fileName = url.split('/').pop();
   const destPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
 
+  console.log(fileName, destPath);
+
   try {
     const downloadResult = await RNFS.downloadFile({
       fromUrl: url,
@@ -35,14 +37,16 @@ export const downloadFile = async (url: string) => {
         type: 'success',
       })
     } else {
+      console.log(downloadResult.statusCode)
       showNotification({
         description: 'Erro ao baixar arquivo.',
         type: 'danger',
       })
     }
   } catch (error) {
+    console.log(error);
     showNotification({
-      description: 'Erro ao baixar arquivo.',
+      description: `Erro ao baixar arquivo. ${error}`,
       type: 'danger',
     })
   }
