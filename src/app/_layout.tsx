@@ -18,7 +18,7 @@ export default function RootLayout() {
     <>
       <Stack
         screenOptions={{
-          navigationBarHidden: true,
+          navigationBarHidden: false,
         }}
       >
         <Stack.Screen name="(app)" options={{ headerShown: false }} />

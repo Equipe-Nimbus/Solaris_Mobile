@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { Link } from "expo-router";
 
 import { Map } from "./map";
 import { getRequestById } from "../api/req-images";
-// import { ImageGrid } from "./image-grid";
+import { ImagesList } from "./images-list";
 
+import { LoadingCard } from "@/src/components/ui/loading";
 import { showNotification } from "@/src/components/ui/utils";
+
+import { REQUEST_MOCK } from "@/src/utils/mocks";
 
 import { ImagesRequest } from "@/src/types/types";
 
 import { fDate } from "@/src/utils/fDate";
 
-import GreenCircle from "@/assets/icons/green-circle.svg";  
+import GreenCircle from "@/assets/icons/green-circle.svg";
 import OrangeCircle from "@/assets/icons/orange-circle.svg";
-import { REQUEST_MOCK } from "@/src/utils/mocks";
 
 type RequestViewProps = {
     requestId: string;
@@ -46,7 +49,7 @@ const RequestView = ({ requestId }: RequestViewProps) => {
     }, [requestId])
 
     return (
-        <View className="h-full bg-neutral-800 px-4">
+        <ScrollView className="h-full bg-neutral-800 px-4">
             <View className="flex flex-col py-8">
                 <View className="flex flex-col gap-2 py-6">
                     <Text className="text-neutral-400 font-medium">Id da consulta</Text>
@@ -58,12 +61,12 @@ const RequestView = ({ requestId }: RequestViewProps) => {
                     <View className="flex flex-row items-center gap-2 mt-3">
                         {request.status_requisicao ? (
                             <>
-                                <GreenCircle width={20} height={20}/>
+                                <GreenCircle width={20} height={20} />
                                 <Text className="font-semibold text-mheading3 text-success">CONCLUÍDA</Text>
                             </>
                         ) : (
                             <>
-                                <OrangeCircle width={20} height={20}/>
+                                <OrangeCircle width={20} height={20} />
                                 <Text className="font-semibold text-mheading3 text-primary-500">EM PROCESSAMENTO</Text>
                             </>
                         )}
@@ -78,27 +81,27 @@ const RequestView = ({ requestId }: RequestViewProps) => {
                             <Text className="text-neutral-400 font-medium">Data inicial: <Text className="text-neutral-300 font-medium">{fDate(request.tempo_inicio_requisicao)}</Text></Text>
                             <Text className="text-neutral-400 font-medium">Data final: <Text className="text-neutral-300 font-medium">{fDate(request.tempo_final_requisicao)}</Text></Text>
                         </View>
-                        <View className="w-full xl:w-1/2">
+                        <View className="w-full">
                             <Map bounds={bounds} />
                         </View>
                     </View>
                 </View>
             </View>
-            {/* {request.status_requisicao ? (
-                <ImageGrid imagens={request.imagens} hasSearched={true} />
+            {request.status_requisicao ? (
+                <ImagesList images={request.imagens} hasSearched={true} />
             ) : (
                 <LoadingCard
                     title="Processando suas imagens..."
                 >
                     <Text className="max-w-[400px] text-center text-neutral-400">
-                        Isso pode levar algum tempo. Você pode retornar a qualquer momento e verificar o status da sua requisição nas suas{' '}
-                        <Link href={paths.requests.list} className="text-primary-500">
-                            requisições anteriores.
-                        </Link>
+                        Isso pode levar algum tempo. Você pode retornar a qualquer momento e verificar o status da sua requisição nas suas
                     </Text>
+                    <Link href="/(app)/req-list" >
+                        <Text className="text-primary-500">requisições anteriores</Text>
+                    </Link>
                 </LoadingCard>
-            )} */}
-        </View>
+            )}
+        </ScrollView>
     )
 }
 

@@ -11,7 +11,7 @@ export async function reqImages(formValues: ReqImagesFormValues): Promise<AxiosR
         const fStartDate = fDateToServer(startDate);
         const fEndDate = fDateToServer(endDate);
 
-        const id = useAuth.use.user()?.id;
+        const id = useAuth.getState().user?.id;
 
         const response = await api.get<{ imagens: SatelliteImage[] }>(endpoints.images.req, {
             params: {

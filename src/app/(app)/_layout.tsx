@@ -2,6 +2,10 @@ import { useAuth } from "@/src/lib/auth";
 import { Redirect, SplashScreen, Tabs } from "expo-router";
 import { useCallback, useEffect } from "react";
 
+import PlusIcon from "@/assets/icons/plus.svg";
+import ListIcon from "@/assets/icons/list.svg";
+import SettingsIcon from "@/assets/icons/settings.svg";
+
 export default function TabLayout() {
 
     const status = useAuth.use.status();
@@ -26,7 +30,11 @@ export default function TabLayout() {
             screenOptions={{
                 tabBarStyle: {
                     backgroundColor: "#08090A",
-                    paddingBottom: 6
+                    paddingVertical: 6
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: "semibold"
                 },
                 tabBarActiveTintColor: "#FF8A05",
                 tabBarInactiveTintColor: "#A3A3A3"
@@ -43,14 +51,26 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: "Nova consulta",
-                    headerShown: false
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <PlusIcon fill={color} width={18} height={18}/>,
                 }}
             />
             <Tabs.Screen
                 name="req-list"
                 options={{
                     title: "Consultas",
-                    headerShown: false
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <ListIcon fill={color} width={18} height={18}/>,
+
+                }}
+            />
+            <Tabs.Screen
+                name="settings"
+                options={{
+                    title: "Configurações",
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <SettingsIcon fill={color} width={18} height={18}/>,
+
                 }}
             />
         </Tabs>

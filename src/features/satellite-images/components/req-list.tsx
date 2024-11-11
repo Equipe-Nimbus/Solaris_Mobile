@@ -31,7 +31,7 @@ const RequestsList = ({ requests }: RequestsListProps) => {
                         <Text className="text-base font-semibold text-success">CONCLUÍDA</Text>
                     </View>
                 ) : (
-                    <View className="w-full flex flex-row items-center">
+                    <View className="w-full flex flex-row items-center gap-3">
                         <OrangeCircle width={12} height={12} />
                         <Text className="text-base font-semibold text-primary-500">EM ANDAMENTO</Text>
                     </View>
@@ -52,6 +52,7 @@ const RequestsList = ({ requests }: RequestsListProps) => {
         <DataList
             data={requests}
             renderItem={requestCard}
+            hasSearched
         />
     )
 }

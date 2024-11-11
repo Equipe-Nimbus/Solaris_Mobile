@@ -1,4 +1,7 @@
 import { MMKV } from 'react-native-mmkv';
+import RNFS from 'react-native-fs';
+
+import { showNotification } from '../components/ui/utils';
 
 export const storage = new MMKV();
 
@@ -14,3 +17,33 @@ export async function setItem<T>(key: string, value: T) {
 export async function removeItem(key: string) {
   storage.delete(key);
 }
+
+export const downloadFile = async (url: string) => {
+  const fileName = url.split('/').pop();
+  const destPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
+
+  try {
+    const downloadResult = await RNFS.downloadFile({
+      fromUrl: url,
+      toFile: destPath,
+      
+    }).promise;
+
+    if (downloadResult.statusCode === 200) {
+      showNotification({
+        description: `Download concluído. Arquivo salvo em: ${destPath}`,
+        type: 'success',
+      })
+    } else {
+      showNotification({
+        description: 'Erro ao baixar arquivo.',
+        type: 'danger',
+      })
+    }
+  } catch (error) {
+    showNotification({
+      description: 'Erro ao baixar arquivo.',
+      type: 'danger',
+    })
+  }
+};

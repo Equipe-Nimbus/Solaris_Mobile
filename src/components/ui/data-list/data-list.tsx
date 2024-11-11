@@ -5,10 +5,13 @@ import { FlashList, FlashListProps } from '@shopify/flash-list';
 interface DataListProps<T> {
     data: T[];
     renderItem: (item: T, index: number) => React.ReactNode;
+    hasSearched: boolean;
 }
 
-function DataList<T>({ data, renderItem }: DataListProps<T>): JSX.Element {
+function DataList<T>({ data, renderItem, hasSearched }: DataListProps<T>): JSX.Element {
     if (!data?.length) {
+        if (!hasSearched) return <></>;
+
         return (
             <View className="flex h-96 items-center justify-center">
                 <Text className="text-neutral-500">Nenhum resultado encontrado</Text>
