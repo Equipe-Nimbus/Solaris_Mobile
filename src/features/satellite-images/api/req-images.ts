@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ReqImagesFormValues } from "../components/req-images-form";
-import { ImagesRequestList, SatelliteImage } from "@/src/types/types";
+import { ImagesRequest, ImagesRequestList, SatelliteImage } from "@/src/types/types";
 import { api, endpoints } from "@/src/lib/api-client";
 import { fDateToServer } from "@/src/utils/fDate";
 import { useAuth } from "@/src/lib/auth";
@@ -34,6 +34,16 @@ export async function getRequests(): Promise<ImagesRequestList[]> {
 
         const { listaRequisicao } = res.data;
         return listaRequisicao || [];
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getRequestById(id: string ): Promise<ImagesRequest> {
+    try {
+        const res = await api.get<ImagesRequest>(endpoints.requests.listOne(id));
+
+        return res.data;
     } catch (error) {
         throw error;
     }

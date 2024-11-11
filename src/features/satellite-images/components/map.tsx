@@ -8,7 +8,7 @@ import { Button } from '@/src/components/ui/button';
 
 interface MapProps {
     bounds?: { north: number, south: number, east: number, west: number }
-    setValue: UseFormSetValue<ReqImagesFormValues>
+    setValue?: UseFormSetValue<ReqImagesFormValues>
 }
 
 interface MapRegion {
@@ -102,7 +102,10 @@ export function Map({ bounds, setValue }: MapProps) {
         if (coordinates.length === 4) {
             const bbox = getBboxFromCoords(coordinates);
             console.log('Bbox:', bbox);
-            setValue('bbox', bbox);
+
+            if (setValue) {
+                setValue('bbox', bbox);
+            }
         }
     }, [coordinates]);
 
@@ -133,13 +136,15 @@ export function Map({ bounds, setValue }: MapProps) {
                     <Marker key={index} coordinate={coord} draggable onDragEnd={(e) => onMarkerDragEnd(e, index)} />
                 ))}
             </MapView>
-            <Button
-                variant='ghost'
-                onPress={() => setCoordinates([])}
-                disabled={!canReset}
-            >
-                Resetar Coordenadas
-            </Button>
+            {!bounds && (
+                <Button
+                    variant='ghost'
+                    onPress={() => setCoordinates([])}
+                    disabled={!canReset}
+                >
+                    Resetar Coordenadas
+                </Button>
+            )}
         </View>
     );
 }

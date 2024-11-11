@@ -7,6 +7,9 @@ import { Text, View } from "react-native";
 import { Button } from "@/src/components/ui/button";
 import { fDate } from "@/src/utils/fDate";
 
+import GreenCircle from "@/assets/icons/green-circle.svg";
+import OrangeCircle from "@/assets/icons/orange-circle.svg";
+
 type RequestsListProps = {
     requests: ImagesRequestList[];
 }
@@ -22,18 +25,22 @@ const RequestsList = ({ requests }: RequestsListProps) => {
             <Text className="text-small font-medium text-neutral-400">{fDate(item.data_requisicao)}</Text>
             <View className="flex flex-col gap-2">
                 <Text className="text-base font-semibold text-neutral-200">{item.id_requisicao}</Text>
-                <View className="flex flex-row gap-1">
-                    <Text className="text-base font-semibold text-neutral-200">Status:</Text>
-                    {item.status_requisicao ? (
+                {item.status_requisicao ? (
+                    <View className="w-full flex flex-row items-center gap-3">
+                        <GreenCircle width={12} height={12} />
                         <Text className="text-base font-semibold text-success">CONCLUÍDA</Text>
-                    ) : (
+                    </View>
+                ) : (
+                    <View className="w-full flex flex-row items-center">
+                        <OrangeCircle width={12} height={12} />
                         <Text className="text-base font-semibold text-primary-500">EM ANDAMENTO</Text>
-                    )}
-                </View>
+                    </View>
+                )}
+
                 <Button
                     variant="ghost"
                     className="text-left"
-                    onPress={() => {}}
+                    onPress={() => { router.push(`/req/${item.id_requisicao}`) }}
                 >
                     Ver detalhes
                 </Button>

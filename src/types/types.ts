@@ -22,3 +22,13 @@ export type ImagesRequestList = {
     data_requisicao: string;
     status_requisicao: boolean;
 }
+
+export type ImagesRequest = {
+    id_requisicao: string;
+    data_requisicao: string;
+    bbox_requisicao: number[];
+    status_requisicao: boolean;
+    tempo_inicio_requisicao: string;
+    tempo_final_requisicao: string;
+    imagens: SatelliteImage[];
+}

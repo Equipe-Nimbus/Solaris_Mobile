@@ -24,7 +24,8 @@ export default function RootLayout() {
         <Stack.Screen name="(app)" options={{ headerShown: false }} />
         <Stack.Screen name="register" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
-      </Stack>
+        <Stack.Screen name="req/[id]" options={{ headerShown: false }} />
+            </Stack>
       <FlashMessage position="top" />
     </>
   );
