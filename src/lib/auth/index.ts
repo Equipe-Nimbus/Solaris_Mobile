@@ -60,6 +60,7 @@ const _useAuth = create<AuthState>((set, get) => ({
     signOut: () => {
         removeToken();
         set({ status: 'signOut', user: null });
+        delete api.defaults.headers['Authorization'];
     },
     hydrate: () => {
         try {

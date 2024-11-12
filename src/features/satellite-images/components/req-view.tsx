@@ -25,6 +25,7 @@ type RequestViewProps = {
 
 const RequestView = ({ requestId }: RequestViewProps) => {
     const [request, setRequest] = useState<ImagesRequest>(REQUEST_MOCK);
+    console.log(request.imagens)
 
     const bounds = {
         west: request.bbox_requisicao[0],
