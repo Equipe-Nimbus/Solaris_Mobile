@@ -21,7 +21,7 @@ export function LoginForm() {
             .catch((error) => {
                 console.log(error);
                 showNotification({
-                    description: `Erro ao cadastrar usuário: ${error?.response?.data?.erro}`,
+                    description: `Erro ao fazer o login: ${error?.response?.data?.erro}`,
                     type: 'danger',
                 });
             });

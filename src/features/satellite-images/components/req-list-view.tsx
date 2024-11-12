@@ -1,15 +1,20 @@
-import { ImagesRequestList } from "@/src/types/types";
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { getRequests } from "../api/req-images";
-import { showNotification } from "@/src/components/ui/utils";
+import { useEffect, useState, useCallback } from "react";
+
+import { Text, View, ScrollView } from "react-native";
+import { useFocusEffect } from "expo-router";
+
 import { RequestsList } from "./req-list";
-import { ScrollView } from "react-native";
+import { getRequests } from "../api/req-images";
+
+import { showNotification } from "@/src/components/ui/utils";
+
+import { ImagesRequestList } from "@/src/types/types";
+
 
 const ReqListView = () => {
     const [requests, setRequests] = useState<ImagesRequestList[]>([]);
 
-    useEffect(() => {
+    const fetchRequests = useCallback(() => {
         getRequests()
             .then((response) => {
                 setRequests(response);
@@ -18,10 +23,16 @@ const ReqListView = () => {
                 showNotification({
                     description: 'Erro ao buscar requisições',
                     type: 'danger'
-                })
+                });
                 console.log(error);
             });
-    }, [])
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchRequests();
+        }, [fetchRequests])
+    );
 
     return (
         <ScrollView>
