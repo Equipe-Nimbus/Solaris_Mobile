@@ -5,10 +5,12 @@ import { useCallback, useEffect } from "react";
 import PlusIcon from "@/assets/icons/plus.svg";
 import ListIcon from "@/assets/icons/list.svg";
 import SettingsIcon from "@/assets/icons/settings.svg";
+import { useIsFirstTime } from "@/src/hooks/use-is-first-time";
 
 export default function TabLayout() {
 
     const status = useAuth.use.status();
+    const [isFirstTime] = useIsFirstTime();
 
     const hideSplash = useCallback(async () => {
         await SplashScreen.hideAsync();
@@ -20,6 +22,10 @@ export default function TabLayout() {
             }, 1000);
         }
     }, [hideSplash, status]);
+
+    if (isFirstTime) {
+        return <Redirect href="/onboarding" />
+    }
 
     if (status === "signOut") {
         return <Redirect href="/login" />
