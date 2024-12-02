@@ -9,6 +9,10 @@ export type SatelliteImage = {
     bbox: number[];
     mascara: string;
     download_links: string;
+    data_imagem_criacao: string;    
+    estatistica_fundo: string;
+    estatistica_nuvem: string;
+    estatistica_sombra: string;
 }
 
 export type AuthResponse = {

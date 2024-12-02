@@ -1,5 +1,5 @@
+import { Alert, Linking } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
-import RNFS from 'react-native-fs';
 
 import { showNotification } from '../components/ui/utils';
 
@@ -18,36 +18,44 @@ export async function removeItem(key: string) {
   storage.delete(key);
 }
 
-export const downloadFile = async (url: string) => {
-  const fileName = url.split('/').pop();
-  const destPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
-
-  console.log(fileName, destPath);
-
+export async function downloadFile(url: string) {
   try {
-    const downloadResult = await RNFS.downloadFile({
-      fromUrl: url,
-      toFile: destPath,
-      
-    }).promise;
+    const supported = await Linking.canOpenURL(url);
 
-    if (downloadResult.statusCode === 200) {
-      showNotification({
-        description: `Download concluído. Arquivo salvo em: ${destPath}`,
-        type: 'success',
-      })
+    if (supported) {
+      Alert.alert(
+        'Confirmação de Download',
+        'Você será redirecionado para o navegador para baixar o arquivo. Deseja continuar?',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: async () => {
+              await Linking.openURL(url);
+              showNotification({
+                description: 'O download foi iniciado no navegador.',
+                type: 'info',
+              });
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } else {
-      console.log(downloadResult.statusCode)
+      console.log(`Não foi possível abrir a URL: ${url}`);
       showNotification({
-        description: 'Erro ao baixar arquivo.',
+        description: 'Não foi possível abrir a URL no navegador.',
         type: 'danger',
-      })
+      });
     }
   } catch (error) {
-    console.log(error);
+    console.log(`Erro ao tentar abrir a URL: ${error}`);
     showNotification({
-      description: `Erro ao baixar arquivo. ${error}`,
+      description: `Erro ao tentar abrir a URL: ${error}`,
       type: 'danger',
-    })
+    });
   }
-};
+}

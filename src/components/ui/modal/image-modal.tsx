@@ -62,7 +62,7 @@ const ImageModal = ({
                         </View>
                         <View className="border-t border-neutral-600 my-4 w-full" />
                         <View className="w-full">
-                            <View className="flex flex-col gap-4">
+                            <View className="flex flex-col gap-8">
                                 <View className="flex flex-col gap-2">
                                     <Text className="text-base text-neutral-300 font-medium">Camadas</Text>
                                     <View className="flex flex-row gap-6">
@@ -79,18 +79,38 @@ const ImageModal = ({
                                     </View>
                                 </View>
                                 <View className="flex flex-col gap-2">
+                                    <Text className="text-base text-neutral-300 font-medium">Informações</Text>
+                                    <View className="flex flex-col gap-1">
+                                        <Text className="flex gap-1 text-small text-neutral-400">
+                                            <Text className="text-neutral-300">Data da captura:</Text> {imagem.data_imagem_criacao || 'N/A'}
+                                        </Text>
+                                        <Text className="flex gap-1 text-small text-neutral-400">
+                                            <Text className="text-neutral-300">Área (bbox):</Text> {imagem.bbox.toString() || 'N/A'}
+                                        </Text>
+                                        <Text className="flex gap-1 text-small text-neutral-400">
+                                            <Text className="text-neutral-300">Cobertura de nuvens:</Text> {imagem.estatistica_nuvem || 'N/A'}
+                                        </Text>
+                                        <Text className="flex gap-1 text-small text-neutral-400">
+                                            <Text className="text-neutral-300">Cobertura de sombras de nuvem:</Text> {imagem.estatistica_sombra || 'N/A'}
+                                        </Text>
+                                        <Text className="flex gap-1 text-small text-neutral-400">
+                                            <Text className="text-neutral-300">Fundo:</Text> {imagem.estatistica_fundo || 'N/A'}
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View className="flex flex-col gap-2">
                                     <Text className="text-base text-neutral-300 font-medium">Downloads</Text>
                                     <View className="flex flex-row gap-6">
                                         <TouchableOpacity
                                             className="flex flex-row items-center gap-2"
-                                            onPress={() => {downloadFile(imagem.tiff)}}
+                                            onPress={() => { downloadFile(imagem.tiff) }}
                                         >
                                             <DownloadIcon width={24} height={24} fill="#A3A3A3" />
                                             <Text className="text-small font-semibold text-neutral-400">tiff</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             className="flex flex-row items-center gap-2"
-                                            onPress={() => {downloadFile(imagem.download_links)}}
+                                            onPress={() => { downloadFile(imagem.download_links) }}
                                         >
                                             <DownloadIcon width={24} height={24} fill="#A3A3A3" />
                                             <Text className="text-small font-semibold text-neutral-400">máscara</Text>
